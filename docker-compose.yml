@@ -1,0 +1,32 @@
+services:
+    frontend:
+        build: ./frontend
+        ports:
+            - "3000:80"
+        env_file:
+            - ./frontend/.env
+
+    gateway:
+        build: ./backend/gateway
+        ports:
+            - "4000:4000"
+        env_file:
+            - ./backend/gateway/.env
+
+    auth:
+        build: ./backend/auth
+        ports:
+            - "4001:4001"
+        env_file:
+            - ./backend/auth/.env
+
+    chat:
+        build: ./backend/chat
+        ports:
+            - "4002:4002"
+        env_file:
+            - ./backend/chat/.env
+
+
+
+    

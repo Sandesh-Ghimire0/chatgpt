@@ -1,0 +1,20 @@
+.env
+node_modules/
+user/
+# Python-specific files
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+# Database files
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Environment variables
+.env
+
+# Tool-specific files
+.python-version
