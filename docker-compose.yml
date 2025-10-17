@@ -22,6 +22,8 @@ services:
 
     chat:
         build: ./backend/chat
+        volumes:
+            - ./backend/chat:/app
         ports:
             - "4002:4002"
         env_file:

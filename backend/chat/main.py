@@ -122,7 +122,7 @@ async def generate_response(thread_id:Optional[str] = None,google_id:Optional[st
 
 
 @app.get("/history")
-def get_history(thread_id: str = Query(...)):
+def get_history(thread_id: Optional[str] = None):
     try:
         chat_history = []
         if thread_id != "undefined":
