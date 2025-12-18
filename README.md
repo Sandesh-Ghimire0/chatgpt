@@ -29,3 +29,8 @@ A Full stack web application built using python (langgraph, fastapi, pymongo) an
 -   **Containerization :** Docker
 
 ## Screenshots
+
+![landing](frontend/public/landing.png)
+![home](frontend/public/home.png)
+![chat](frontend/public/chat.png)
+
