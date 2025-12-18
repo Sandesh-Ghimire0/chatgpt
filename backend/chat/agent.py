@@ -1,5 +1,4 @@
 from langgraph.checkpoint.memory import MemorySaver
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate,MessagesPlaceholder
 from langgraph.graph import StateGraph,START,END
 from langgraph.graph.message import AnyMessage,add_messages
@@ -9,12 +8,14 @@ from langgraph.graph.message import RemoveMessage
 from langgraph.checkpoint.sqlite import SqliteSaver
 import sqlite3
 
+from langchain_openai import ChatOpenAI
 
 from dotenv import load_dotenv
 load_dotenv()
 
 
-llm = ChatGoogleGenerativeAI(model='gemini-2.0-flash')
+
+llm = ChatOpenAI(model="gpt-4o-mini")
 sqlite_conn = sqlite3.connect("chatgpt-test.sqlite", check_same_thread=False)
 memory = SqliteSaver(sqlite_conn)
 

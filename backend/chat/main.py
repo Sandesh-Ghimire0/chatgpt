@@ -7,13 +7,18 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from agent import workflow  
 from pydantic import BaseModel, Field
 from langchain_core.messages import HumanMessage, AIMessage
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import PromptTemplate
 import uuid
 from typing import Optional
 from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure
+from langchain_openai import ChatOpenAI
+
+
+
 import os
 from fastapi.middleware.cors import CORSMiddleware
+
 
 
 
@@ -38,9 +43,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-client = MongoClient(CLIENT)
-db = client.chatgpt_recent
-items_collection = db.items
+try:
+    client = MongoClient(CLIENT)
+    client.admin.command("ping")
+
+    print("Connected to MongoDB")
+    print("Address:", client.address)
+
+    db = client.chatgpt_recent
+    items_collection = db.items
+
+except ConnectionFailure as e:
+    print("MongoDB not connected:", e)
 
 
 class Question(BaseModel):
@@ -51,7 +65,7 @@ class Title(BaseModel):
 
 
 def get_title(question, answer):
-    llm = ChatGoogleGenerativeAI(model='gemini-2.0-flash')
+    llm = ChatOpenAI(model="gpt-4o-mini")
     structured_llm = llm.with_structured_output(Title)
     prompt = PromptTemplate(
         template='''Generate a 3 to 5 word title for this question answer pair \n question:{question} \n answer:{answer}''',
