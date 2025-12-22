@@ -14,8 +14,6 @@ const gooleLogin = (req, res) => {
         .cookie("token", token, {
             httpOnly: true,
             secure: true,
-            sameSite: "None",
-            path: "/", // available everywhere
         })
         .redirect(`${process.env.FRONTEND_URL}/home`);
 };
